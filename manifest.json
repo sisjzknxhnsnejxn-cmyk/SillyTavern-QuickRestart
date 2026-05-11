@@ -1,0 +1,12 @@
+{
+    "display_name": "Quick Restart",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "sisjzknxhnsnejxn-cmyk",
+    "version": "1.0.0",
+    "homePage": "https://github.com/sisjzknxhnsnejxn-cmyk/SillyTavern-QuickRestart",
+    "description": "A quick restart button plugin for SillyTavern. Adds a floating restart button that is mobile and iOS friendly, allowing you to restart the server with a single tap."
+}

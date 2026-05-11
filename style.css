@@ -1,0 +1,343 @@
+/**
+ * SillyTavern Quick Restart Plugin - Styles
+ * 适配桌面端、移动端和iOS界面
+ */
+
+/* ===== 浮动重启按钮 ===== */
+.qr-floating-btn {
+    position: fixed;
+    z-index: 99999;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.qr-floating-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.qr-floating-btn:active,
+.qr-floating-btn.qr-btn-active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+.qr-floating-btn.qr-btn-dragging {
+    opacity: 0.7;
+    transform: scale(1.15);
+    transition: none;
+}
+
+/* 按钮图标 */
+.qr-btn-icon {
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-btn-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ===== 按钮位置 ===== */
+.qr-pos-bottom-right {
+    bottom: 80px;
+    right: 16px;
+}
+
+.qr-pos-bottom-left {
+    bottom: 80px;
+    left: 16px;
+}
+
+.qr-pos-top-right {
+    top: 80px;
+    right: 16px;
+}
+
+.qr-pos-top-left {
+    top: 80px;
+    left: 16px;
+}
+
+/* ===== 重启遮罩层 ===== */
+.qr-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.qr-overlay.qr-overlay-visible {
+    opacity: 1;
+}
+
+.qr-overlay-content {
+    text-align: center;
+    color: #ffffff;
+    padding: 32px 24px;
+    max-width: 90vw;
+}
+
+.qr-overlay-text {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.qr-overlay-subtext {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+
+.qr-reconnect-status {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 12px;
+    min-height: 24px;
+}
+
+/* ===== 加载动画 ===== */
+.qr-spinner {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: qr-spin 0.8s linear infinite;
+}
+
+@keyframes qr-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== 手动刷新按钮 ===== */
+.qr-manual-refresh {
+    margin-top: 16px !important;
+    padding: 10px 28px !important;
+    font-size: 15px !important;
+    border-radius: 8px !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.qr-manual-refresh:active {
+    opacity: 0.8;
+}
+
+/* ===== 设置面板 ===== */
+.quick-restart-settings {
+    margin-top: 10px;
+}
+
+.quick-restart-settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.qr-setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.qr-setting-item label {
+    font-size: 14px;
+}
+
+.qr-setting-item select {
+    max-width: 280px;
+}
+
+#qr_restart_now {
+    margin-top: 8px;
+    max-width: 280px;
+}
+
+/* ===== 移动端适配 ===== */
+@media screen and (max-width: 768px) {
+    .qr-floating-btn {
+        width: 52px;
+        height: 52px;
+    }
+
+    .qr-btn-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .qr-pos-bottom-right {
+        bottom: 100px;
+        right: 12px;
+    }
+
+    .qr-pos-bottom-left {
+        bottom: 100px;
+        left: 12px;
+    }
+
+    .qr-pos-top-right {
+        top: 60px;
+        right: 12px;
+    }
+
+    .qr-pos-top-left {
+        top: 60px;
+        left: 12px;
+    }
+
+    .qr-overlay-text {
+        font-size: 18px;
+    }
+
+    .qr-overlay-subtext {
+        font-size: 13px;
+    }
+}
+
+/* ===== 小屏手机适配 ===== */
+@media screen and (max-width: 480px) {
+    .qr-floating-btn {
+        width: 46px;
+        height: 46px;
+    }
+
+    .qr-pos-bottom-right {
+        bottom: 90px;
+        right: 10px;
+    }
+
+    .qr-pos-bottom-left {
+        bottom: 90px;
+        left: 10px;
+    }
+
+    .qr-overlay-content {
+        padding: 24px 16px;
+    }
+}
+
+/* ===== iOS安全区域适配 ===== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .qr-pos-bottom-right,
+    .qr-pos-bottom-left {
+        bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+
+    .qr-pos-top-right,
+    .qr-pos-top-left {
+        top: calc(80px + env(safe-area-inset-top));
+    }
+
+    .qr-overlay {
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-top: env(safe-area-inset-top);
+    }
+}
+
+/* ===== iOS特定修复 ===== */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari 特定修复 */
+    .qr-floating-btn {
+        /* 防止iOS上的点击延迟 */
+        touch-action: manipulation;
+        /* 防止长按弹出菜单 */
+        -webkit-touch-callout: none;
+    }
+
+    .qr-overlay {
+        /* iOS Safari 全屏遮罩修复 */
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* ===== 暗色主题适配 ===== */
+@media (prefers-color-scheme: dark) {
+    .qr-floating-btn {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* ===== 横屏模式适配 ===== */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .qr-pos-bottom-right,
+    .qr-pos-bottom-left {
+        bottom: 16px;
+    }
+
+    .qr-pos-top-right,
+    .qr-pos-top-left {
+        top: 16px;
+    }
+
+    .qr-floating-btn {
+        width: 42px;
+        height: 42px;
+    }
+
+    .qr-overlay-content {
+        padding: 16px;
+    }
+
+    .qr-spinner {
+        width: 36px;
+        height: 36px;
+    }
+
+    .qr-overlay-text {
+        font-size: 16px;
+        margin-top: 12px;
+    }
+}
+
+/* ===== 减少动画（无障碍） ===== */
+@media (prefers-reduced-motion: reduce) {
+    .qr-floating-btn {
+        transition: none;
+    }
+
+    .qr-overlay {
+        transition: none;
+    }
+
+    .qr-spinner {
+        animation-duration: 1.5s;
+    }
+}
