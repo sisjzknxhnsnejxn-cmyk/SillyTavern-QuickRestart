@@ -1,6 +1,6 @@
 /**
- * SillyTavern Quick Restart Plugin - Styles
- * 设置面板内按钮样式 + 重启遮罩层
+ * SillyTavern Quick Restart Plugin - Styles v3.0
+ * 黑白简约风格：重启遮罩层 + 设置面板 + 魔法棒菜单项 + 粒子动画
  */
 
 /* ===== 重启遮罩层 ===== */
@@ -10,15 +10,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: radial-gradient(ellipse at center, rgba(20, 20, 20, 0.92) 0%, rgba(0, 0, 0, 0.96) 100%);
+    backdrop-filter: blur(20px) saturate(1.2);
+    -webkit-backdrop-filter: blur(20px) saturate(1.2);
     z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
 .qr-overlay.qr-overlay-visible {
@@ -28,38 +29,312 @@
 .qr-overlay-content {
     text-align: center;
     color: #ffffff;
-    padding: 32px 24px;
+    padding: 40px 32px;
     max-width: 90vw;
+    position: relative;
+    z-index: 2;
+    animation: qr-content-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: 0.2s;
 }
 
+@keyframes qr-content-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ===== Logo 动画容器 ===== */
+.qr-logo-container {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 28px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-logo-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #ffffff 0%, #cccccc 50%, #999999 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+    box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.3),
+        0 0 60px rgba(200, 200, 200, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: qr-icon-pulse 2s ease-in-out infinite;
+}
+
+.qr-logo-icon i {
+    font-size: 24px;
+    color: #000;
+    animation: qr-icon-spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes qr-icon-pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 30px rgba(255, 255, 255, 0.3),
+            0 0 60px rgba(200, 200, 200, 0.15);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 
+            0 0 40px rgba(255, 255, 255, 0.5),
+            0 0 80px rgba(200, 200, 200, 0.25);
+    }
+}
+
+@keyframes qr-icon-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== 旋转光环 ===== */
+.qr-logo-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+}
+
+.qr-ring-outer {
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    border-top-color: #ffffff;
+    border-right-color: rgba(255, 255, 255, 0.3);
+    animation: qr-ring-spin 1.5s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+}
+
+.qr-ring-inner {
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    left: 10px;
+    border-bottom-color: #aaaaaa;
+    border-left-color: rgba(170, 170, 170, 0.3);
+    animation: qr-ring-spin-reverse 1.2s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(170, 170, 170, 0.4));
+}
+
+@keyframes qr-ring-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes qr-ring-spin-reverse {
+    to { transform: rotate(-360deg); }
+}
+
+/* ===== 文字样式 ===== */
 .qr-overlay-text {
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 24px;
+    font-size: 22px;
+    font-weight: 700;
     margin-bottom: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #dddddd 50%, #bbbbbb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    animation: qr-text-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes qr-text-shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
 .qr-overlay-subtext {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+    font-weight: 300;
 }
 
-/* ===== 加载动画 ===== */
-.qr-spinner {
-    width: 48px;
-    height: 48px;
+/* ===== 进度条 ===== */
+.qr-progress-bar {
+    width: 200px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
     margin: 0 auto;
-    border: 4px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #667eea;
-    border-radius: 50%;
-    animation: qr-spin 0.8s linear infinite;
+    overflow: hidden;
+    position: relative;
 }
 
-@keyframes qr-spin {
-    to {
-        transform: rotate(360deg);
+.qr-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #888, #ccc, #fff, #ccc);
+    background-size: 300% 100%;
+    border-radius: 4px;
+    animation: qr-progress-flow 1.8s ease-in-out forwards, qr-progress-gradient 1.5s linear infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes qr-progress-flow {
+    0% { width: 0%; }
+    30% { width: 40%; }
+    60% { width: 70%; }
+    90% { width: 95%; }
+    100% { width: 100%; }
+}
+
+@keyframes qr-progress-gradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+/* ===== 粒子动画 ===== */
+.qr-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.qr-particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: qr-particle-float 3s ease-in-out infinite;
+}
+
+.qr-p1 {
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.qr-p2 {
+    width: 4px;
+    height: 4px;
+    background: #cccccc;
+    top: 70%;
+    left: 80%;
+    animation-delay: 0.5s;
+    box-shadow: 0 0 10px rgba(204, 204, 204, 0.6);
+}
+
+.qr-p3 {
+    width: 5px;
+    height: 5px;
+    background: #999999;
+    top: 40%;
+    left: 85%;
+    animation-delay: 1s;
+    box-shadow: 0 0 12px rgba(153, 153, 153, 0.6);
+}
+
+.qr-p4 {
+    width: 3px;
+    height: 3px;
+    background: #dddddd;
+    top: 80%;
+    left: 20%;
+    animation-delay: 1.5s;
+    box-shadow: 0 0 8px rgba(221, 221, 221, 0.6);
+}
+
+.qr-p5 {
+    width: 4px;
+    height: 4px;
+    background: #ffffff;
+    top: 10%;
+    left: 60%;
+    animation-delay: 0.8s;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.qr-p6 {
+    width: 5px;
+    height: 5px;
+    background: #bbbbbb;
+    top: 60%;
+    left: 10%;
+    animation-delay: 2s;
+    box-shadow: 0 0 12px rgba(187, 187, 187, 0.6);
+}
+
+@keyframes qr-particle-float {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
     }
+    20% {
+        opacity: 0.8;
+        transform: translateY(-10px) scale(1);
+    }
+    80% {
+        opacity: 0.6;
+        transform: translateY(-40px) scale(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0);
+    }
+}
+
+/* ===== 确认弹窗样式 ===== */
+.qr-confirm-popup {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.qr-confirm-popup .qr-confirm-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 14px;
+    background: linear-gradient(135deg, #333333 0%, #000000 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.qr-confirm-popup .qr-confirm-icon i {
+    font-size: 22px;
+    color: #fff;
+}
+
+.qr-confirm-popup h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.qr-confirm-popup p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.qr-confirm-popup .qr-confirm-hint {
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
 }
 
 /* ===== 设置面板 ===== */
@@ -90,24 +365,57 @@
     margin: 4px 0;
 }
 
-/* 重启按钮样式 */
+/* ===== 设置面板重启按钮 - 透明底黑色字 ===== */
 .qr-restart-btn {
     max-width: 320px;
     margin-top: 4px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-    color: #fff !important;
-    border: none !important;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    background: transparent !important;
+    color: #000000 !important;
+    border: 1.5px solid #000000 !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px;
+    box-shadow: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.qr-restart-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 0, 0, 0.05),
+        transparent
+    );
+    transition: left 0.5s ease;
 }
 
 .qr-restart-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.qr-restart-btn:hover::before {
+    left: 100%;
 }
 
 .qr-restart-btn:active {
-    opacity: 0.8;
     transform: translateY(0);
+    background: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qr-restart-btn span {
+    margin-right: 6px;
 }
 
 .qr-hint {
@@ -117,6 +425,31 @@
 
 .qr-hint small {
     font-size: 12px;
+}
+
+/* ===== 魔法棒菜单中的重启按钮 ===== */
+#qr_wand_restart_btn {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+#qr_wand_restart_btn i {
+    color: #333333;
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+#qr_wand_restart_btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+#qr_wand_restart_btn:hover i {
+    color: #000000;
+    transform: rotate(180deg);
+}
+
+#qr_wand_restart_btn:active {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /* ===== 移动端适配 ===== */
@@ -129,8 +462,39 @@
         font-size: 13px;
     }
 
+    .qr-logo-container {
+        width: 80px;
+        height: 80px;
+    }
+
+    .qr-ring-outer {
+        width: 80px;
+        height: 80px;
+    }
+
+    .qr-ring-inner {
+        width: 64px;
+        height: 64px;
+        top: 8px;
+        left: 8px;
+    }
+
+    .qr-logo-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+    }
+
+    .qr-logo-icon i {
+        font-size: 20px;
+    }
+
     .qr-restart-btn {
         max-width: 100%;
+    }
+
+    .qr-progress-bar {
+        width: 160px;
     }
 }
 
@@ -138,6 +502,10 @@
 @media screen and (max-width: 480px) {
     .qr-overlay-content {
         padding: 24px 16px;
+    }
+
+    .qr-overlay-text {
+        font-size: 16px;
     }
 }
 
@@ -162,14 +530,41 @@
         padding: 16px;
     }
 
-    .qr-spinner {
+    .qr-logo-container {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 16px;
+    }
+
+    .qr-ring-outer {
+        width: 64px;
+        height: 64px;
+    }
+
+    .qr-ring-inner {
+        width: 50px;
+        height: 50px;
+        top: 7px;
+        left: 7px;
+    }
+
+    .qr-logo-icon {
         width: 36px;
         height: 36px;
+        border-radius: 10px;
+    }
+
+    .qr-logo-icon i {
+        font-size: 16px;
     }
 
     .qr-overlay-text {
         font-size: 16px;
-        margin-top: 12px;
+        margin-bottom: 4px;
+    }
+
+    .qr-overlay-subtext {
+        margin-bottom: 16px;
     }
 }
 
@@ -179,11 +574,44 @@
         transition: none;
     }
 
-    .qr-spinner {
-        animation-duration: 1.5s;
+    .qr-overlay-content {
+        animation: none;
+    }
+
+    .qr-logo-icon i {
+        animation-duration: 3s;
+    }
+
+    .qr-ring-outer,
+    .qr-ring-inner {
+        animation-duration: 3s;
     }
 
     .qr-restart-btn {
         transition: none;
+    }
+
+    .qr-particle {
+        display: none;
+    }
+}
+
+/* ===== 暗色主题增强 ===== */
+@media (prefers-color-scheme: dark) {
+    .qr-confirm-popup .qr-confirm-icon {
+        box-shadow: 0 4px 24px rgba(255, 255, 255, 0.15);
+    }
+
+    .qr-restart-btn {
+        color: #ffffff !important;
+        border-color: #ffffff !important;
+    }
+
+    .qr-restart-btn:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .qr-restart-btn:active {
+        background: rgba(255, 255, 255, 0.12) !important;
     }
 }
